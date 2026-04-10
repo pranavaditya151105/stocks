@@ -1,3 +1,6 @@
+import eventlet
+eventlet.monkey_patch()
+
 import json, os
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
@@ -33,15 +36,27 @@ def index():
 # ── STOCK DATA APIs ───────────────────────────────────────
 @app.route("/api/stocks")
 def api_stocks():
-    return jsonify(get_all_prices())
+    try:
+        return jsonify(get_all_prices())
+    except Exception as e:
+        print(f"Error in /api/stocks: {e}")
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/api/stocks/latest")
 def api_stocks_latest():
-    return jsonify(get_latest_prices())
+    try:
+        return jsonify(get_latest_prices())
+    except Exception as e:
+        print(f"Error in /api/stocks/latest: {e}")
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/api/stocks/stats")
 def api_stocks_stats():
-    return jsonify(get_stats_per_symbol())
+    try:
+        return jsonify(get_stats_per_symbol())
+    except Exception as e:
+        print(f"Error in /api/stocks/stats: {e}")
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/api/stocks/ohlc/<symbol>")
 def api_ohlc(symbol):
