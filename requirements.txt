@@ -1,0 +1,10 @@
+flask
+flask-cors
+flask-socketio
+yfinance
+apscheduler
+pymongo
+python-dotenv
+dnspython
+gunicorn
+eventlet
