@@ -1,5 +1,5 @@
-import eventlet
-eventlet.monkey_patch()
+from gevent import monkey
+monkey.patch_all()
 
 import json, os
 from flask import Flask, jsonify, render_template, request
@@ -11,7 +11,7 @@ import yfinance as yf
 
 app      = Flask(__name__)
 CORS(app)
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="gevent")
 
 CONFIG_PATH  = os.path.join(os.path.dirname(__file__), "stocks_config.json")
 DISPLAY_MAP  = {}   # ticker → display name, rebuilt on each watchlist call
