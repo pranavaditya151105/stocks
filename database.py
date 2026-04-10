@@ -10,6 +10,9 @@ MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
 DB_NAME = os.getenv("DB_NAME", "stock_db")
 COLLECTION_NAME = os.getenv("COLLECTION_NAME", "stock_prices")
 
+# Debugging: Print only the start of the URI to verify it's loaded without exposing secrets
+print(f"[DEBUG] MONGO_URI starts with: {str(MONGO_URI)[:25]}...")
+
 _client = None
 
 
